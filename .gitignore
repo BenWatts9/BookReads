@@ -5,8 +5,8 @@
 
 
 
-appsetting.Local.json
-.env.local
+BooksReads/appsetting.Local.json
+BooksReads/client/.env.local
 
 # User-specific files
 *.rsuser
