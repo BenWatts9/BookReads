@@ -7,6 +7,7 @@ import { onLoginStatusChange } from "./modules/authManager";
 import { useEffect, useState } from "react"
 import { getLoggedInUser } from './modules/userProfileManager';
 import Header from './components/Header';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
