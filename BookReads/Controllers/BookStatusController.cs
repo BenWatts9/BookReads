@@ -17,7 +17,7 @@ namespace BookReads.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public IActionResult Get()
         {
             return Ok(_bookStatusRepository.GetAllBookStatus());
         }
@@ -40,6 +40,18 @@ namespace BookReads.Controllers
         public IActionResult Delete(int id)
         {
             _bookStatusRepository.DeleteBookStatus(id);
+            return NoContent();
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, BookStatus bookStatus)
+        {
+            if (id != bookStatus.Id)
+            {
+                return BadRequest();
+            }
+
+            _bookStatusRepository.UpdateBookStatus(bookStatus);
             return NoContent();
         }
     }

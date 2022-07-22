@@ -141,5 +141,30 @@ namespace BookReads.Repositories
                 }
             }
         }
+
+        public void UpdateBookStatus(BookStatus bookStatus)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"UPDATE BookStatus
+                                        SET StartedOnDate = @StartedOnDate, 
+                                            FinishedOnDate = @FinishedOnDate, 
+                                            Content = @Content, 
+                                            Rating = @Rating
+                                        WHERE Id = @Id";
+                    DbUtils.AddParameter(cmd, "@StartedOnDate", bookStatus.StartedOnDate);
+                    DbUtils.AddParameter(cmd, "@FinishedOnDate", bookStatus.FinishedOnDate);
+                    DbUtils.AddParameter(cmd, "@Content", bookStatus.Content);
+                    DbUtils.AddParameter(cmd, "@Rating", bookStatus.Rating);
+                    DbUtils.AddParameter(cmd, "@Id", bookStatus.Id);
+
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+        }
     }
 }

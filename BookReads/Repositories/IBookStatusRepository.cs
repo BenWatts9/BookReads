@@ -10,5 +10,6 @@ namespace BookReads.Repositories
         List<BookStatus> GetAllBookStatusByBookId(int id);
         void AddBookStatus(BookStatus bookStatus);
         void DeleteBookStatus(int id);
+        void UpdateBookStatus(BookStatus bookStatus);
     }
 }
