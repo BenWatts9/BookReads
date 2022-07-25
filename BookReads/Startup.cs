@@ -33,6 +33,7 @@ namespace BookReads
             services.AddTransient<IUserProfileRepository, UserProfileRepository>();
             services.AddTransient<IBookRepository, BookRepository>();
             services.AddTransient<IBookStatusRepository, BookStatusRepository>();
+            services.AddTransient<IGroupRepository, GroupRepository>();
 
             var firebaseProjectId = Configuration.GetValue<string>("FirebaseProjectId");
             var googleTokenUrl = $"https://securetoken.google.com/{firebaseProjectId}";

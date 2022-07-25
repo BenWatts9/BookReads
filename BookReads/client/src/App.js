@@ -30,7 +30,6 @@ function App() {
   return (
     <Router>
       <Header isLoggedIn={isLoggedIn} />
-
       <ApplicationViews isLoggedIn={isLoggedIn} user={user} />
     </Router>
   );

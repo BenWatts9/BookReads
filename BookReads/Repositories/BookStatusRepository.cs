@@ -77,7 +77,7 @@ namespace BookReads.Repositories
 	                        b.ImageLocation
                         FROM BookStatus bs
                             LEFT JOIN Book b ON bs.BookId = b.Id
-                        WHERE b.Id = @id;";
+                        WHERE bs.BookId = @id;";
                     DbUtils.AddParameter(cmd, "@id", id);
 
                     var reader = cmd.ExecuteReader();
@@ -88,7 +88,7 @@ namespace BookReads.Repositories
                     {
                         bookStatuses.Add(new BookStatus()
                         {
-                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Id = reader.GetInt32(reader.GetOrdinal("BookStatusId")),
                             BookId = reader.GetInt32(reader.GetOrdinal("BookId")),
                             UserProfileId = reader.GetInt32(reader.GetOrdinal("UserProfileId")),
                             StartedOnDate = reader.GetDateTime(reader.GetOrdinal("StartedOnDate")),

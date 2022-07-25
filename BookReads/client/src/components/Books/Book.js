@@ -2,9 +2,12 @@ import React from "react";
 import { Card, CardBody, CardSubtitle } from "reactstrap";
 import { Button} from "reactstrap";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 const Book = ({ book }) => {
+    const navigate = useNavigate();
+
     return (
         <Card>
             <CardBody>
@@ -14,7 +17,10 @@ const Book = ({ book }) => {
                 <img className="px-3" width="200px" src={book.imageLocation} alt="Book Cover"/>
             <CardBody>
                 <p className="text-left px-3">{book.genre}</p>
-                <Button>Add Review</Button>
+                
+                    <Button onClick={()=>navigate(`/bookStatus/${book.id}`)}>Reviews</Button>{' '}
+                
+                <Button>Add To a Group</Button>{' '}
             </CardBody>
         </Card>
     )

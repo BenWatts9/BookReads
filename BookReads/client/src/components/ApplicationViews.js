@@ -4,6 +4,8 @@ import Hello from "./Hello";
 import Login from "./Login";
 import Register from "./Register";
 import BookList from "./Books/BookList";
+import ReviewList from "./BookReview/ReviewList";
+import CreateReviewForm from "./BookReview/CreateReviewForm";
 
 export default function ApplicationViews({ isLoggedIn, user }) {
   return (
@@ -19,6 +21,9 @@ export default function ApplicationViews({ isLoggedIn, user }) {
 
           <Route path="books" element={<BookList />} />
           
+          <Route path="bookStatus/:id" element={<ReviewList user={user} />} />
+
+          <Route path="bookStatus/:id/CreateReview" element={<CreateReviewForm user={user} />}/>
         </Route>
       </Routes>
     </main>
