@@ -1,4 +1,4 @@
 # BookReads
 
-BookReads is an app designed to organize and keep track of your reading library. 
-It was made with ADO.NET and React. 
+BookReads is a FullStack web app made with ADO.NET and React, designed to organize and keep track of a user's reading library. 
+
