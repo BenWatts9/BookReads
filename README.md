@@ -1,3 +1,3 @@
 # BookReads
 
-BookReads is an app designed to orginize and keep track of your reading library. 
+BookReads is an app designed to organize and keep track of your reading library. 
