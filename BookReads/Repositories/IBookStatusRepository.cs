@@ -11,5 +11,6 @@ namespace BookReads.Repositories
         void AddBookStatus(BookStatus bookStatus);
         void DeleteBookStatus(int id);
         void UpdateBookStatus(BookStatus bookStatus);
+        void AddBookStatusGroup(int bookStatusId, int groupId);
     }
 }

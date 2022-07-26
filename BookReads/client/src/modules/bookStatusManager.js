@@ -36,3 +36,8 @@ export const deleteBookStatus = (id) => {
     });
 };
 
+export const addGroupToBookStatus = (bookStatusId, groupId) => {
+    return fetch(`${baseUrl}/${bookStatusId}?groupId=${groupId}`)
+    .then((res)=> res.json())
+}
+

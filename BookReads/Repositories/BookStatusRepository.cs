@@ -166,5 +166,22 @@ namespace BookReads.Repositories
                 }
             }
         }
+        public void AddBookStatusGroup(int bookStatusId, int groupId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                            INSERT INTO BookStatusGroup (BookStatusId, GroupId)
+                            OUTPUT INSERTED.ID
+                            VALUES (@bookStatusId, @groupId)";
+                    cmd.Parameters.AddWithValue("@bookStatusId", bookStatusId);
+                    cmd.Parameters.AddWithValue("@groupId", groupId);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

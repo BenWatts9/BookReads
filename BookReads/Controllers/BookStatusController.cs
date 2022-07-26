@@ -54,5 +54,12 @@ namespace BookReads.Controllers
             _bookStatusRepository.UpdateBookStatus(bookStatus);
             return NoContent();
         }
+
+        [HttpPost("{id}")]
+        public IActionResult AddGroupToBookStatus(int id, int groupId)
+        {
+            _bookStatusRepository.AddBookStatusGroup(id, groupId);
+            return NoContent();
+        }
     }
 }
