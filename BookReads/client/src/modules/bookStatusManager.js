@@ -10,6 +10,11 @@ export const getBookStatusByBookId = (bookId) => {
     .then((res)=> res.json())
 };
 
+export const getBookStatusByUserProfileId = (userProfileId) => {
+    return fetch(`${baseUrl}/${userProfileId}`)
+    .then((res)=> res.json())
+};
+
 export const addBookStatus = (bookStatus) => {
     return fetch(baseUrl, {
         method: "POST",

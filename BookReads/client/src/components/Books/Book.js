@@ -20,7 +20,7 @@ const Book = ({ book, user }) => {
                 
                     <Button onClick={()=>navigate(`/bookStatus/${book.id}`)}>Reviews</Button>{' '}
                 
-                <Button onClick={()=> navigate(`/groups/${user.id}`)}>Add To a Group</Button>{' '}
+                {/* <Button onClick={()=> navigate(`/groups/${user.id}`)}>Add To a Group</Button>{' '} */}
             </CardBody>
         </Card>
     )

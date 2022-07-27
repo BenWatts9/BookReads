@@ -29,7 +29,7 @@ function App() {
 
   return (
     <Router>
-      <Header isLoggedIn={isLoggedIn} />
+      <Header isLoggedIn={isLoggedIn} user={user} />
       <ApplicationViews isLoggedIn={isLoggedIn} user={user} />
     </Router>
   );

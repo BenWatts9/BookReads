@@ -8,6 +8,7 @@ namespace BookReads.Repositories
     {
         List<BookStatus> GetAllBookStatus();
         List<BookStatus> GetAllBookStatusByBookId(int id);
+        List<BookStatus> GetAllBookStatusByUserProfileId(int id);
         void AddBookStatus(BookStatus bookStatus);
         void DeleteBookStatus(int id);
         void UpdateBookStatus(BookStatus bookStatus);

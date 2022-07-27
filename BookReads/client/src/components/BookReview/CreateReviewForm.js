@@ -73,6 +73,7 @@ const CreateReviewForm = ({ user }) => {
                     type="text"
                     name="rating"
                     id="rating"
+                    placeholder ="Number from 1-5"
                     pattern="[0-5]*"
                     value={review.rating}
                     onChange={handleInputChange}
