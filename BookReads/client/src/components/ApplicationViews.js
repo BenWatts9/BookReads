@@ -7,7 +7,8 @@ import BookList from "./Books/BookList";
 import ReviewList from "./BookReview/ReviewList";
 import CreateReviewForm from "./BookReview/CreateReviewForm";
 import GroupList from "./Groups/GroupList";
-import AddGroupToBookStatus from "./Groups/AddGroupToBookStatus";
+import EditReviewForm from "./BookReview/EditReviewForm";
+
 
 export default function ApplicationViews({ isLoggedIn, user }) {
   return (
@@ -27,9 +28,11 @@ export default function ApplicationViews({ isLoggedIn, user }) {
 
           <Route path="bookStatus/:id/CreateReview" element={<CreateReviewForm user={user} />}/>
 
+          <Route path="bookStatus/:id/EditReview/:id" element={<EditReviewForm user={user} />}/>
+
           <Route path="groups/:id" element={<GroupList user={user} />}>
           </Route>
-          <Route path="groups/:id/AddBookToGroup" element={<AddGroupToBookStatus />} />
+          
 
 
         </Route>

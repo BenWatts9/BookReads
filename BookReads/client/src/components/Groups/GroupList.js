@@ -4,10 +4,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "reactstrap";
 import Group from "./Group";
 
+
 const GroupList = ( user, book ) => {
     const [groups, setGroups] = useState([])
     const navigate = useNavigate();
     const params = useParams()
+
+
 
     const getGroups = () => {
         getAllUserGroups(params.id)
@@ -20,6 +23,7 @@ const GroupList = ( user, book ) => {
     
     return (
         <>
+        <Button>Add a group</Button>
         <h3>Groups</h3>
         <div className="group-container">
             <div className="row justify-content-left">

@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const Book = ({ book, user }) => {
     const navigate = useNavigate();
-
+    
     return (
         <Card>
             <CardBody>
@@ -18,7 +18,7 @@ const Book = ({ book, user }) => {
             <CardBody>
                 <p className="text-left px-3">Genre: {book.genre}</p>
                 
-                    <Button onClick={()=>navigate(`/bookStatus/${book.id}`)}>Reviews</Button>{' '}
+                    <Button onClick={()=>navigate(`/bookStatus/${book.id}`)}>Reviews </Button>{' '}
                 
                 {/* <Button onClick={()=> navigate(`/groups/${user.id}`)}>Add To a Group</Button>{' '} */}
             </CardBody>

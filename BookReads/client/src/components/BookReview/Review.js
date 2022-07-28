@@ -9,7 +9,7 @@ const Review = ({ review, user, getReviews}) => {
 
     const handleDeleteClick = (reviewId) => {
         deleteBookStatus(reviewId)
-        .then(() => {getReviews();
+        .then(() => {getReviews()
         })
     }
 
@@ -22,7 +22,8 @@ const Review = ({ review, user, getReviews}) => {
                 {/* needs a way to convert int into stars */}
                 <p>Rating: {review.rating}/5</p>
 
-                {user?.id == review.userProfileId ? <Button onClick={() => handleDeleteClick(review.id)}>Delete</Button>: ""}
+                {user?.id == review.userProfileId ? <Button onClick={() => handleDeleteClick(review.id)}>Delete</Button>: ""}{' '}
+                {user?.id == review.userProfileId ? <Button onClick={() => navigate(`./EditReview/${review.id}`)}>Edit</Button>: ""}
             </CardBody>
         </Card>
     )

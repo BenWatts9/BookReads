@@ -5,13 +5,19 @@ export const getAllBookStatus = () => {
     .then((res)=> res.json())
 };
 
+export const getBookStatusById = (id) => {
+    return fetch(`${baseUrl}/byId/${id}`)
+    .then((res)=> res.json())
+}
+
+
 export const getBookStatusByBookId = (bookId) => {
     return fetch(`${baseUrl}/${bookId}`)
     .then((res)=> res.json())
 };
 
 export const getBookStatusByUserProfileId = (userProfileId) => {
-    return fetch(`${baseUrl}/${userProfileId}`)
+    return fetch(`${baseUrl}/userGet/${userProfileId}`)
     .then((res)=> res.json())
 };
 
@@ -42,7 +48,15 @@ export const deleteBookStatus = (id) => {
 };
 
 export const addGroupToBookStatus = (bookStatusId, groupId) => {
-    return fetch(`${baseUrl}/${bookStatusId}?groupId=${groupId}`)
+    return fetch(`${baseUrl}/AddGroupToBook/${bookStatusId}?groupId=${groupId}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        }})
     .then((res)=> res.json())
 }
 
+export const getBooksByGroup = (groupId) => {
+    return fetch(`${baseUrl}/BooksByGroup/${groupId}`)
+    .then((res)=> res.json())
+}

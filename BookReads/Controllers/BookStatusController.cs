@@ -22,6 +22,11 @@ namespace BookReads.Controllers
             return Ok(_bookStatusRepository.GetAllBookStatus());
         }
 
+        [HttpGet("byId/{id}")]
+        public IActionResult GetBookStatusById(int id)
+        {
+            return Ok(_bookStatusRepository.GetBookStatusById(id));
+        }
 
         //Get by Book Id
         [HttpGet("{id}")]
@@ -68,6 +73,12 @@ namespace BookReads.Controllers
         {
             _bookStatusRepository.AddBookStatusGroup(id, groupId);
             return NoContent();
+        }
+
+        [HttpGet("BooksByGroup/{id}")]
+        public IActionResult GetBooksByGroup(int id)
+        {
+            return Ok(_bookStatusRepository.GetAllBookStatusGroupBooksByGroupId(id));
         }
     }
 }

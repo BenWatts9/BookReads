@@ -1,40 +1,47 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button, Form, FormGroup, Label, Input, FormText } from "reactstrap";
-import { addBookStatus } from "../../modules/bookStatusManager";
+import { updateBookStatus,getBookStatusById } from "../../modules/bookStatusManager";
 
-const CreateReviewForm = ({ user }) => {
-    const bookId = useParams().id
-    
-    const emptyReview = {
+const EditReviewForm = ({ user }) => {
+    const bookStatusId = useParams().id
+    const [review, setReview] = useState({
         startedOnDate: "",
         finishedOnDate: "",
         content: "",
-        rating: "",
-        bookId: parseInt(bookId),
-        userProfileId: user?.id
-    };
+        rating: ""
+        
+    })
 
-    
-    const [review, setReview]= useState(emptyReview);
 
     const navigate = useNavigate();
 
-    const handleInputChange = (evt) => {
+    useEffect(() => {
+        getBookStatusById(bookStatusId)
+        .then((res)=> setReview(res))
+    },[])
+
+    const handleFieldChange = (evt) => {
         const stateToChange = {...review};
-        
-        stateToChange[evt.target.id] = evt.target.value;
+        stateToChange[evt.target.id] = evt.target.value
         setReview(stateToChange)
     }
 
-    const handleSubmitReview = (evt) => {
-        addBookStatus(review)
-        .then(()=> navigate("/books"))
+    const handleEditReview = () => {
+        if(review.content !== "" && review.rating !==null)
+        {
+            updateBookStatus(review)
+            .then(()=> {
+                navigate(`/books`)
+            })
+        }
+        else
+        {
+            alert("Please enter review info")
+        }
     }
 
-   
-
-    return (
+    return(
         <Form>
             <FormGroup>
                 <Label for="startedOnDate">Started on:</Label>
@@ -43,7 +50,7 @@ const CreateReviewForm = ({ user }) => {
                 name="startedOnDate"
                 id="startedOnDate"
                 value={review.startedOnDate}
-                onChange={handleInputChange}
+                onChange={handleFieldChange}
                 />
             </FormGroup>
             <FormGroup>
@@ -53,7 +60,7 @@ const CreateReviewForm = ({ user }) => {
                 name="finishedOnDate"
                 id="finishedOnDate"
                 value={review.finishedOnDate}
-                onChange={handleInputChange}
+                onChange={handleFieldChange}
                 />
             </FormGroup>
             <FormGroup>
@@ -64,7 +71,7 @@ const CreateReviewForm = ({ user }) => {
                     id="content"
                     placeholder="Your review here"
                     value={review.content}
-                    onChange={handleInputChange}
+                    onChange={handleFieldChange}
                 />
             </FormGroup>
             <FormGroup>
@@ -76,14 +83,13 @@ const CreateReviewForm = ({ user }) => {
                     placeholder ="Number from 1-5"
                     pattern="[0-5]*"
                     value={review.rating}
-                    onChange={handleInputChange}
+                    onChange={handleFieldChange}
                 />
             </FormGroup>
-            <Button onClick={handleSubmitReview}>Submit</Button>{' '}
+            <Button onClick={handleEditReview}>Submit</Button>{' '}
             <Button onClick={() => navigate("/books")}>Cancel</Button>{' '}
         </Form>
     )
+}
 
-} 
-
-export default CreateReviewForm;
+export default EditReviewForm;
