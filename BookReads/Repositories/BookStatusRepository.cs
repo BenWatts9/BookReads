@@ -55,6 +55,57 @@ namespace BookReads.Repositories
                 }
             }
         }
+
+        public BookStatus GetBookStatusById(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT 
+	                        bs.Id as BookStatusId,
+	                        bs.BookId,
+                            bs.UserProfileId,
+                            bs.StartedOnDate,
+                            bs.FinishedOnDate,
+                            bs.Content,
+                            bs.Rating,
+	                        b.Title,
+	                        b.Author,
+	                        b.Genre,
+	                        b.ImageLocation
+                        FROM BookStatus bs
+                            LEFT JOIN Book b ON bs.BookId = b.Id
+                        WHERE bs.Id = @id;";
+                    DbUtils.AddParameter(cmd, "@id", id);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            BookStatus bookStatus = new BookStatus()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("BookStatusId")),
+                                BookId = reader.GetInt32(reader.GetOrdinal("BookId")),
+                                UserProfileId = reader.GetInt32(reader.GetOrdinal("UserProfileId")),
+                                StartedOnDate = reader.GetDateTime(reader.GetOrdinal("StartedOnDate")),
+                                FinishedOnDate = reader.GetDateTime(reader.GetOrdinal("FinishedOnDate")),
+                                Content = reader.GetString(reader.GetOrdinal("Content")),
+                                Rating = reader.GetInt32(reader.GetOrdinal("Rating"))
+                            };
+                            return bookStatus;
+                        }
+                        else
+                        {
+                            return null;
+                        }
+                    }
+                }
+            }
+        }
+
         public List<BookStatus> GetAllBookStatusByBookId(int id)
         {
             using (var conn = Connection)
@@ -102,6 +153,55 @@ namespace BookReads.Repositories
                 }
             }
         }
+
+        public List<BookStatus> GetAllBookStatusByUserProfileId(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT 
+	                        bs.Id as BookStatusId,
+	                        bs.BookId,
+                            bs.UserProfileId,
+                            bs.StartedOnDate,
+                            bs.FinishedOnDate,
+                            bs.Content,
+                            bs.Rating,
+	                        b.Title,
+	                        b.Author,
+	                        b.Genre,
+	                        b.ImageLocation
+                        FROM BookStatus bs
+                            LEFT JOIN Book b ON bs.BookId = b.Id
+                        WHERE bs.UserProfileId = @id;";
+                    DbUtils.AddParameter(cmd, "@id", id);
+
+                    var reader = cmd.ExecuteReader();
+
+                    var bookStatuses = new List<BookStatus>();
+
+                    while (reader.Read())
+                    {
+                        bookStatuses.Add(new BookStatus()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("BookStatusId")),
+                            BookId = reader.GetInt32(reader.GetOrdinal("BookId")),
+                            UserProfileId = reader.GetInt32(reader.GetOrdinal("UserProfileId")),
+                            StartedOnDate = reader.GetDateTime(reader.GetOrdinal("StartedOnDate")),
+                            FinishedOnDate = reader.GetDateTime(reader.GetOrdinal("FinishedOnDate")),
+                            Content = reader.GetString(reader.GetOrdinal("Content")),
+                            Rating = reader.GetInt32(reader.GetOrdinal("Rating"))
+                        });
+                    }
+
+                    return bookStatuses;
+                }
+            }
+        }
+
 
         public void AddBookStatus(BookStatus bookStatus)
         {
@@ -163,6 +263,81 @@ namespace BookReads.Repositories
 
                     cmd.ExecuteNonQuery();
 
+                }
+            }
+        }
+        public void AddBookStatusGroup(int bookStatusId, int groupId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                            INSERT INTO BookStatusGroup (BookStatusId, GroupId)
+                            OUTPUT INSERTED.ID
+                            VALUES (@bookStatusId, @groupId)";
+                    cmd.Parameters.AddWithValue("@bookStatusId", bookStatusId);
+                    cmd.Parameters.AddWithValue("@groupId", groupId);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public List<Book> GetAllBookStatusGroupBooksByGroupId(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT 
+	                        b.Id as bookId,
+	                        b.Title,
+	                        b.Author,
+	                        b.Genre,
+	                        b.ImageLocation,
+                            g.Id as groupId,
+                            g.UserProfileId AS groupUserProfileId,
+	                        g.Name,
+	                        bsg.Id AS BsgId
+                            
+                        FROM BookStatusGroup bsg
+                        LEFT JOIN BookStatus bs ON bsg.BookStatusId = bs.Id
+                        LEFT JOIN [Group] g ON bsg.GroupId = g.Id
+                        LEFT JOIN Book b ON bs.BookId = b.Id
+                        WHERE groupId = @id";
+                    DbUtils.AddParameter(cmd, "@Id", id);
+
+                    var reader = cmd.ExecuteReader();
+
+                    var books = new List<Book>();
+                    var groups = new List<Group>();
+                   
+                    while (reader.Read())
+                    {
+                        var book = new Book()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("bookId")),
+                            Title = reader.GetString(reader.GetOrdinal("Title")),
+                            Author = reader.GetString(reader.GetOrdinal("Author")),
+                            Genre = reader.GetString(reader.GetOrdinal("Genre")),
+                            ImageLocation = reader.GetString(reader.GetOrdinal("ImageLocation")),
+                            Groups = new List<Group>()
+                        };
+
+                        book.Groups.Add(new Group()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("groupId")),
+                            Name = reader.GetString(reader.GetOrdinal("Name")),
+                            UserProfileId = reader.GetInt32(reader.GetOrdinal("groupUserProfileId"))
+                        });
+
+                        books.Add(book);
+                    }
+
+                    return books;
                 }
             }
         }

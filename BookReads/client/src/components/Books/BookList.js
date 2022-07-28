@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { getAllBooks } from "../../modules/bookManager";
 import Book from "./Book";
 
-const BookList = () => {
+const BookList = ({user}) => {
     const [books, setBooks] = useState([]);
 
     const getBooks = () => {
@@ -17,10 +17,10 @@ const BookList = () => {
     return (
         <>
         <h3>Books</h3>
-        <div className="tag-container">
+        <div className="book-container">
             <div className="row justify-content-left">
                 {books.map((book) => (
-                    <Book book={book} key={book.id} />
+                    <Book book={book} key={book.id} user={user}/>
                 ))}
             </div>
         </div>

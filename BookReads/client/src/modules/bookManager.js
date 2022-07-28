@@ -1,4 +1,4 @@
-const baseUrl = 'api/Book';
+const baseUrl = '/api/Book';
 
 export const getAllBooks = () => {
     return fetch(baseUrl)

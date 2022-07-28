@@ -6,6 +6,9 @@ import Register from "./Register";
 import BookList from "./Books/BookList";
 import ReviewList from "./BookReview/ReviewList";
 import CreateReviewForm from "./BookReview/CreateReviewForm";
+import GroupList from "./Groups/GroupList";
+import EditReviewForm from "./BookReview/EditReviewForm";
+
 
 export default function ApplicationViews({ isLoggedIn, user }) {
   return (
@@ -19,11 +22,19 @@ export default function ApplicationViews({ isLoggedIn, user }) {
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
 
-          <Route path="books" element={<BookList />} />
+          <Route path="books" element={<BookList user={user}/>} />
           
           <Route path="bookStatus/:id" element={<ReviewList user={user} />} />
 
           <Route path="bookStatus/:id/CreateReview" element={<CreateReviewForm user={user} />}/>
+
+          <Route path="bookStatus/:id/EditReview/:id" element={<EditReviewForm user={user} />}/>
+
+          <Route path="groups/:id" element={<GroupList user={user} />}>
+          </Route>
+          
+
+
         </Route>
       </Routes>
     </main>

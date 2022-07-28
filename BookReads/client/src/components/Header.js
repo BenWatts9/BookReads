@@ -11,7 +11,7 @@ import {
 } from "reactstrap";
 import { logout } from "../modules/authManager";
 
-export default function Header({ isLoggedIn}) {
+export default function Header({ isLoggedIn, user}) {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
@@ -37,6 +37,15 @@ export default function Header({ isLoggedIn}) {
               <NavItem>
                 <NavLink tag={RRNavLink} to="books">
                   Books
+                </NavLink>
+              </NavItem>
+            )}
+            </Nav>
+          <Nav navbar>
+            {isLoggedIn && user && (
+              <NavItem>
+                <NavLink tag={RRNavLink} to={`groups/${user.id}`}>
+                  My Groups
                 </NavLink>
               </NavItem>
             )}
