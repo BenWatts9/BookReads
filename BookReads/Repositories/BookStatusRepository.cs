@@ -284,62 +284,6 @@ namespace BookReads.Repositories
             }
         }
 
-        public List<Book> GetAllBookStatusGroupBooksByGroupId(int id)
-        {
-            using (var conn = Connection)
-            {
-                conn.Open();
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.CommandText = @"
-                        SELECT 
-	                        b.Id as bookId,
-	                        b.Title,
-	                        b.Author,
-	                        b.Genre,
-	                        b.ImageLocation,
-                            g.Id as groupId,
-                            g.UserProfileId AS groupUserProfileId,
-	                        g.Name,
-	                        bsg.Id AS BsgId
-                            
-                        FROM BookStatusGroup bsg
-                        LEFT JOIN BookStatus bs ON bsg.BookStatusId = bs.Id
-                        LEFT JOIN [Group] g ON bsg.GroupId = g.Id
-                        LEFT JOIN Book b ON bs.BookId = b.Id
-                        WHERE groupId = @id";
-                    DbUtils.AddParameter(cmd, "@Id", id);
-
-                    var reader = cmd.ExecuteReader();
-
-                    var books = new List<Book>();
-                    var groups = new List<Group>();
-                   
-                    while (reader.Read())
-                    {
-                        var book = new Book()
-                        {
-                            Id = reader.GetInt32(reader.GetOrdinal("bookId")),
-                            Title = reader.GetString(reader.GetOrdinal("Title")),
-                            Author = reader.GetString(reader.GetOrdinal("Author")),
-                            Genre = reader.GetString(reader.GetOrdinal("Genre")),
-                            ImageLocation = reader.GetString(reader.GetOrdinal("ImageLocation")),
-                            Groups = new List<Group>()
-                        };
-
-                        book.Groups.Add(new Group()
-                        {
-                            Id = reader.GetInt32(reader.GetOrdinal("groupId")),
-                            Name = reader.GetString(reader.GetOrdinal("Name")),
-                            UserProfileId = reader.GetInt32(reader.GetOrdinal("groupUserProfileId"))
-                        });
-
-                        books.Add(book);
-                    }
-
-                    return books;
-                }
-            }
-        }
+       
     }
 }

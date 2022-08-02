@@ -8,6 +8,7 @@ import ReviewList from "./BookReview/ReviewList";
 import CreateReviewForm from "./BookReview/CreateReviewForm";
 import GroupList from "./Groups/GroupList";
 import EditReviewForm from "./BookReview/EditReviewForm";
+import CreateGroupForm from "./Groups/CreateGroupForm";
 
 
 export default function ApplicationViews({ isLoggedIn, user }) {
@@ -32,6 +33,8 @@ export default function ApplicationViews({ isLoggedIn, user }) {
 
           <Route path="groups/:id" element={<GroupList user={user} />}>
           </Route>
+
+          <Route path="groups/AddGroup" element={<CreateGroupForm  user={user} />} />
           
 
 

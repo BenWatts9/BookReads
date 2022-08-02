@@ -22,10 +22,10 @@ const ReviewList = ({user}) => {
 
     return (
         <>
+        
+        <Button style={{margin: '.8rem'}} onClick={() => navigate("./CreateReview")}>Add a Review</Button>
         <p></p>
-        <Button onClick={() => navigate("./CreateReview")}>Add a Review</Button>
-        <p></p>
-        <h3>Reviews</h3>
+        <h3 style={{margin: '.5rem'}}>Reviews</h3>
         <div className="reviewListContainer">
             {reviews.map((review)=> (
                 <Review review={review} user={user} key={review.id} getReviews={getReviews}/>

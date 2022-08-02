@@ -118,5 +118,45 @@ namespace BookReads.Repositories
             }
 
         }
+        public List<Group> GetGroupsByBookStatusId(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                                SELECT 
+	                                g.Id AS GroupId,
+	                                g.Name,
+                                    g.UserProfileId,
+                                    bsg.BookStatusId
+                                FROM [Group] g
+                                LEFT JOIN BookStatusGroup bsg ON g.Id = bsg.GroupId
+                                WHERE BookStatusId = @id
+                                        ";
+                    cmd.Parameters.AddWithValue("@id", id);
+
+                    var reader = cmd.ExecuteReader();
+
+                    var groups = new List<Group>();
+
+                    while (reader.Read())
+                    {
+                        var group = new Group()
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("GroupId")),
+                            Name = reader.GetString(reader.GetOrdinal("Name")),
+                            UserProfileId = reader.GetInt32(reader.GetOrdinal("UserProfileId"))
+                        };
+                        groups.Add(group);
+                    }
+
+                    reader.Close();
+
+                    return groups;
+                }
+            }
+        }
     }
 }

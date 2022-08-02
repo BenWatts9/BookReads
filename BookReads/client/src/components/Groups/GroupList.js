@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { getAllUserGroups } from "../../modules/groupManager";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "reactstrap";
-import Group from "./Group";
+import Group from "./Group.js";
 
 
 const GroupList = ( user, book ) => {
@@ -23,16 +23,15 @@ const GroupList = ( user, book ) => {
     
     return (
         <>
-        <Button>Add a group</Button>
+        <Button style={{margin: '.8rem'}}  onClick={()=> navigate("/groups/AddGroup")}>Add a group</Button>
         <h3>Groups</h3>
         <div className="group-container">
             <div className="row justify-content-left">
                 {groups.map((group) => (
-                    <Group group={group} key={group.id} user={user} book={book}/>
+                    <Group group={group} key={group.id} user={user} getGroups={getGroups}/>
                 ))}
             </div>
         </div>
-        
         </>
     )
 }

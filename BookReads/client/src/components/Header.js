@@ -10,14 +10,15 @@ import {
   NavLink,
 } from "reactstrap";
 import { logout } from "../modules/authManager";
+import "../App.css"
 
 export default function Header({ isLoggedIn, user}) {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <div>
-      <Navbar color="light" light expand="md">
+    <div className="Header">
+      <Navbar >
         <NavbarBrand tag={RRNavLink} to="/">
           BookReads
         </NavbarBrand>
@@ -79,6 +80,7 @@ export default function Header({ isLoggedIn, user}) {
                 </NavItem>
               </>
             )}
+            <a style={{color: "black"}} href="https://github.com/BenWatts9" target="_blank">&copy; Ben Watts</a>
           </Nav>
         </Collapse>
       </Navbar>

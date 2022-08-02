@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, Card, CardBody } from 'reactstrap';
 import { useNavigate, Link } from "react-router-dom";
 import { login } from "../modules/authManager";
 
@@ -17,6 +17,9 @@ export default function Login() {
   };
 
   return (
+    <>
+    <Card style={{ width: '18rem' }}>
+    <CardBody >
     <Form onSubmit={loginSubmit}>
       <fieldset>
         <FormGroup>
@@ -26,7 +29,7 @@ export default function Login() {
             type="text"
             autoFocus
             onChange={(e) => setEmail(e.target.value)}
-          />
+            />
         </FormGroup>
         <FormGroup>
           <Label for="password">Password</Label>
@@ -34,7 +37,7 @@ export default function Login() {
             id="password"
             type="password"
             onChange={(e) => setPassword(e.target.value)}
-          />
+            />
         </FormGroup>
         <FormGroup>
           <Button>Login</Button>
@@ -44,5 +47,8 @@ export default function Login() {
         </em>
       </fieldset>
     </Form>
+    </CardBody>
+    </Card>
+            </>
   );
 }

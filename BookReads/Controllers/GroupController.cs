@@ -43,5 +43,11 @@ namespace BookReads.Controllers
             _groupRepository.RemoveGroup(id);
             return NoContent();
         }
+
+        [HttpGet("GroupByBookStatus/{id}")]
+        public IActionResult GetGroupByBookStatusId(int id)
+        {
+            return Ok(_groupRepository.GetGroupsByBookStatusId(id));
+        }
     }
 }

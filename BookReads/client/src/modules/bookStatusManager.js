@@ -53,10 +53,7 @@ export const addGroupToBookStatus = (bookStatusId, groupId) => {
         headers: {
             "Content-Type": "application/json"
         }})
-    .then((res)=> res.json())
 }
 
-export const getBooksByGroup = (groupId) => {
-    return fetch(`${baseUrl}/BooksByGroup/${groupId}`)
-    .then((res)=> res.json())
-}
+
+

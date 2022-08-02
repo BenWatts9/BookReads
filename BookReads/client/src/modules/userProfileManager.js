@@ -15,3 +15,8 @@ export const getLoggedInUser = () => {
       }).then((response) => response.json())
     );
   };
+
+  export const getUserById = (id) => {
+    return fetch(`${baseUrl}/GetUser/${id}`)
+    .then((res)=>res.json())
+  }

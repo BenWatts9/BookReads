@@ -1,4 +1,6 @@
 ﻿using System;
+using BookReads.Models;
+using System.Collections.Generic;
 
 namespace BookReads.Models
 {
@@ -11,6 +13,7 @@ namespace BookReads.Models
         public int Rating { get; set; }
         public int BookId { get; set; }
         public int UserProfileId { get; set; }
+        public List<Group> Groups { get; set; }
 
     }
 }

@@ -7,7 +7,9 @@ namespace BookReads.Repositories
     {
         
         UserProfile GetByFirebaseUserId(string firebaseUserId);
-       
+
+
+        UserProfile GetByUserId(int id);
        
     }
 }

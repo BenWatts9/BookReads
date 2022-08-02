@@ -75,10 +75,6 @@ namespace BookReads.Controllers
             return NoContent();
         }
 
-        [HttpGet("BooksByGroup/{id}")]
-        public IActionResult GetBooksByGroup(int id)
-        {
-            return Ok(_bookStatusRepository.GetAllBookStatusGroupBooksByGroupId(id));
-        }
+        
     }
 }

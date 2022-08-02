@@ -5,79 +5,31 @@ import { Link } from "react-router-dom";
 import { useNavigate, useParams } from "react-router-dom";
 import { getAllBooks } from "../../modules/bookManager";
 import { addGroupToBookStatus, getBookStatusByUserProfileId,getBooksByGroup } from "../../modules/bookStatusManager";
+import { deleteGroup } from "../../modules/groupManager";
 
-const Group = ( {group} ) => {
+const Group = ( {group, getGroups} ) => {
     
     const [books, setBooks] = useState([])
-    const [bookStatus, setBookStatus] = useState([])
-    const [groupBooks, setGroupBooks] = useState([])
-    const [addedBooks, setAddedBooks] = useState ([])
+
     const params = useParams()
     const userId = parseInt(params.id)
     let valueCheck = false
     
-    const getBooks = () => {
-        getAllBooks().then((res)=> setBooks(res))
-    }
+   
 
-    const getGroupBooks = () => {
-        getBooksByGroup(parseInt(group.id))
-        .then((res)=> setGroupBooks(res))
-        .then((res)=> setAddedBooks(res))
+    const handleDeleteClick = (groupId) => {
+        deleteGroup(groupId)
+        .then(() => {getGroups()
+        })
     }
-
-    const getBookStatus = () => {
-        getBookStatusByUserProfileId(params.id).then((res)=> setBookStatus(res))
-    }
-    
-    const handleChange = (evt) => {
-        let i = 0
-        while(!valueCheck)
-        {
-            
-            if(parseInt(evt.target.value) === bookStatus[i].bookId && bookStatus[i].userProfileId === userId)
-            {
-
-                    addGroupToBookStatus(bookStatus[i].id, group.id)
-                    valueCheck = true
-                    getGroupBooks()
-            }
-            i++
-        } 
-        valueCheck = false
-    }
-
-    
-    useEffect(()=> {
-        getBooks()
-        getBookStatus()
-        getGroupBooks()
-    }, [])
-    
+ 
 
     return (
-        <Card>
+        <Card className="Card" style={{background: '#e4dabb', width: '20rem', margin: '.8rem', boxShadow: "-1px 1px 5px #cac5b4"}}>
             <CardBody>
-                <h4>{group.name}</h4>
-                <div>
-                    {groupBooks.map((groupBook)=>(
-                        <p key={groupBook.id}>{groupBook.title}</p>
-                    ))}
-                </div>
-                <div>
-            <label>
-            
-                <select onChange={handleChange}>
-                    <option  value=''>
-                        --Choose a book--</option>
-                {books.map((book)=>(
-                    <>
-                    <option value={book.id} key={book.id}>{book.title}</option>
-                    </>
-                ))}
-                </select>
-            </label>
-        </div>
+                <h5>{group.name}</h5>
+        <p></p>
+        <Button onClick={() => handleDeleteClick(group.id)}>Delete</Button>{' '}
             </CardBody>
         </Card>
     )

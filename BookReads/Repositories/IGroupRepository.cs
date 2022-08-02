@@ -11,5 +11,6 @@ namespace BookReads.Repositories
         List<Group> GetUserGroups(int id);
         void AddGroup(Group group);
         void RemoveGroup(int id);
+        List<Group> GetGroupsByBookStatusId(int id);
     }
 }

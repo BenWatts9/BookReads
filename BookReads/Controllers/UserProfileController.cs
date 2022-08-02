@@ -48,5 +48,11 @@ namespace BookReads.Controllers
             return Ok();
         }
 
+        [HttpGet("GetUser/{id}")]
+        public IActionResult GetById(int id)
+        {
+            return Ok(_userProfileRepository.GetByUserId(id));
+        }
+
     }
 }

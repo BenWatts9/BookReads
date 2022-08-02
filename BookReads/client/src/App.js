@@ -29,8 +29,12 @@ function App() {
 
   return (
     <Router>
+
       <Header isLoggedIn={isLoggedIn} user={user} />
-      <ApplicationViews isLoggedIn={isLoggedIn} user={user} />
+
+      <div className="App-body">
+        <ApplicationViews  isLoggedIn={isLoggedIn} user={user} />
+      </div>
     </Router>
   );
 }
